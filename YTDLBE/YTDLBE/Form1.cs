@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
+using System.Net;
+using System.Threading;
 
 namespace YTDLBE
 {
@@ -27,7 +29,9 @@ namespace YTDLBE
             "[HKEY_CLASSES_ROOT\\yt\\shell\\open]\r\n" +
             "[HKEY_CLASSES_ROOT\\yt\\shell\\open\\command]\r\n" +
             "@=\\\"\"__INSTALL_DIR__\\yt-dl.bat\" %1\"";
- 
+        private string python_exe = "https://www.python.org/ftp/python/3.8.0/python-3.8.0.exe";
+
+
         public Form1()
         {
             InitializeComponent();
@@ -41,7 +45,10 @@ namespace YTDLBE
 
         private void btnInstall_Click(object sender, EventArgs e)
         {
-
+            this.btnInstall.Enabled = false;
+            this.btnCancel.Enabled = false;
+            this.lmsg.Enabled = false;
+            this.lmsg2.Enabled = true;
             string path = txtBrowse.Text;
             if (!Directory.Exists(path))
             {
@@ -68,33 +75,48 @@ namespace YTDLBE
             var python = InstallPython();
             if (python != 0) { return 1; }
             pgInstall.Value = 16;
+            Application.DoEvents();
+            Thread.Sleep(1500);
             //Install PIP 0x2
             var python_pip = InstallPythonPIP();
             if (python_pip != 0) { return 2; }
-            pgInstall.Value = 32;
+            pgInstall.Value = 32; Application.DoEvents();
+            Thread.Sleep(1500);
             //PIP Install Youtube_dl 0x3
             var python_pip_youtube_dl = InstallPythonPIPYoutubeDL();
             if (python_pip_youtube_dl != 0) { return 3; }
             pgInstall.Value = 48;
+            Application.DoEvents();
+            Thread.Sleep(1500);
             //Create Bat File From Template 0x4
             var bat_from_template = InstallCreateBat();
             if (bat_from_template != 0) { return 4; }
-            pgInstall.Value = 64;
+            pgInstall.Value = 64; Application.DoEvents();
+            Thread.Sleep(1500);
             //Create Register Key File From Template 0x5
             var reg_key_from_template = InstallCreateRegKey();
             if (reg_key_from_template != 0) { return 5; }
-            pgInstall.Value = 80;
+            pgInstall.Value = 80; Application.DoEvents();
+            Thread.Sleep(1500);
             //Merge Key into Register 0x6
             var merge_reg_key = InstallMergeRegKey();
             if (merge_reg_key != 0) { return 6; }
-            pgInstall.Value = 100;
+            pgInstall.Value = 100; Application.DoEvents();
+            Thread.Sleep(1500);
             return 0; //Succesfull 0x0
         }
 
         private int InstallPython()
         {
-            try { 
-            return 0;
+            try {
+                using (WebClient myWebClient = new WebClient())
+                {
+                    string myStringWebResource = python_exe;
+                    myWebClient.DownloadFile(myStringWebResource, "python-setup.exe");
+                }
+                Process regeditProcess = Process.Start("python-setup.exe", "/quiet");
+                regeditProcess.WaitForExit();
+                return 0;
             }
             catch
             {
@@ -103,8 +125,10 @@ namespace YTDLBE
         }
         private int InstallPythonPIP()
         {
-            try { 
-            return 0;
+            try {
+                Process regeditProcess = Process.Start("python.exe", "-m pip install pip -U");
+                regeditProcess.WaitForExit();
+                return 0;
             }
             catch
             {
@@ -113,8 +137,11 @@ namespace YTDLBE
         }
         private int InstallPythonPIPYoutubeDL()
         {
-            try { 
-            return 0;
+            try
+            {
+                Process regeditProcess = Process.Start("python.exe", "-m pip install youtube_dl -U");
+                regeditProcess.WaitForExit();
+                return 0;
             }
             catch
             {
@@ -179,6 +206,11 @@ namespace YTDLBE
                 txtBrowse.Text = fbd.SelectedPath;
                 this.__DIR__ = fbd.SelectedPath;
             }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

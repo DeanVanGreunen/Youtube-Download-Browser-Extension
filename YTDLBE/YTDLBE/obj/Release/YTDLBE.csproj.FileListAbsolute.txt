@@ -7,3 +7,4 @@ D:\Storage\Projects\Youtube Download Browser Extension\YTDLBE\YTDLBE\obj\Release
 D:\Storage\Projects\Youtube Download Browser Extension\YTDLBE\YTDLBE\obj\Release\YTDLBE.csproj.CoreCompileInputs.cache
 D:\Storage\Projects\Youtube Download Browser Extension\YTDLBE\YTDLBE\obj\Release\YTDLBE.exe
 D:\Storage\Projects\Youtube Download Browser Extension\YTDLBE\YTDLBE\obj\Release\YTDLBE.pdb
+D:\Storage\Projects\Youtube Download Browser Extension\YTDLBE\YTDLBE\obj\Release\YTDLBE.csprojAssemblyReference.cache

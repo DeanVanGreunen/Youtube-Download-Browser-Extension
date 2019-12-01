@@ -35,7 +35,8 @@
             this.btnInstall = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.pgInstall = new System.Windows.Forms.ProgressBar();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lmsg = new System.Windows.Forms.Label();
+            this.lmsg2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -114,15 +115,28 @@
             this.pgInstall.Size = new System.Drawing.Size(614, 23);
             this.pgInstall.TabIndex = 6;
             // 
-            // label3
+            // lmsg
             // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(275, 252);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(269, 13);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "Select your Music Folder Location Then Click Install";
+            this.lmsg.AutoSize = true;
+            this.lmsg.BackColor = System.Drawing.Color.Black;
+            this.lmsg.Location = new System.Drawing.Point(262, 246);
+            this.lmsg.Name = "lmsg";
+            this.lmsg.Size = new System.Drawing.Size(269, 13);
+            this.lmsg.TabIndex = 7;
+            this.lmsg.Text = "Select your Music Folder Location Then Click Install";
+            this.lmsg.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // lmsg2
+            // 
+            this.lmsg2.AutoSize = true;
+            this.lmsg2.BackColor = System.Drawing.Color.Black;
+            this.lmsg2.Enabled = false;
+            this.lmsg2.Location = new System.Drawing.Point(314, 282);
+            this.lmsg2.Name = "lmsg2";
+            this.lmsg2.Size = new System.Drawing.Size(166, 13);
+            this.lmsg2.TabIndex = 8;
+            this.lmsg2.Text = "Please wait, currently installing";
+            this.lmsg2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // Form1
             // 
@@ -130,7 +144,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(800, 328);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.lmsg2);
+            this.Controls.Add(this.lmsg);
             this.Controls.Add(this.pgInstall);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnInstall);
@@ -138,16 +153,18 @@
             this.Controls.Add(this.btnBrowse);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.White;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form1";
             this.ShowIcon = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-            this.Text = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.TopMost = true;
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -162,7 +179,8 @@
         private System.Windows.Forms.Button btnInstall;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.ProgressBar pgInstall;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lmsg;
+        private System.Windows.Forms.Label lmsg2;
     }
 }
 
